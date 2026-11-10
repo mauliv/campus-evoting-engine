@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  web:
+    image: php:8.2-apache
+    container_name: campusballot-web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: evoting_db
+      DB_USER: evoting_user
+      DB_PASS: evoting_secret
+      DB_SCHEMA: evoting, public
+      CAS_HOST: sso.example.edu
+      CAS_PORT: 443
+    volumes:
+      - ./public_html:/var/www/html
+      - ./vendor:/var/www/vendor
+    command: >
+      bash -c "apt-get update && apt-get install -y libpq-dev libcurl4-openssl-dev &&
+               docker-php-ext-install pgsql pdo_pgsql curl &&
+               a2enmod rewrite &&
+               apache2-foreground"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    container_name: campusballot-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: evoting_db
+      POSTGRES_USER: evoting_user
+      POSTGRES_PASSWORD: evoting_secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./database/seed_demo.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+
+volumes:
+  postgres_data:

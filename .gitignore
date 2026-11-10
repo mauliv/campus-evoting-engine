@@ -1,0 +1,35 @@
+# Dependencies
+/vendor/
+node_modules/
+
+# Environment and Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# Database Dumps & Voter Data Protection
+*.sql
+!database/schema.sql
+!database/seed_demo.sql
+*.dump
+*.tar.gz
+*.zip
+*.bak
+*.csv
+
+# Logs & Runtime Caches
+*.log
+.phpunit.cache/
+.phpunit.result.cache
+
+# IDE & OS Metadata
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+Desktop.ini
