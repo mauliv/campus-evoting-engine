@@ -3,7 +3,7 @@
 ini_set("error_reporting",E_ALL & ~E_NOTICE);
 ini_set("display_errors",0);
 
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 //session_start();
 
 //$nomor_peserta = $_SESSION["nomor_peserta"];
@@ -208,9 +208,8 @@ This script downloaded from www.JavaScriptBank.com
 
 
     <div class="box">
-        <h1 align="center">SELESAI
-        </h1>
-        <h3 align="center">Tunggu sebentar, Anda akan otomatis dialihkan ke Halaman Utama</h3>
+        <h1 align="center" style="font-weight: 800; color: #15803d;">BALLOT SUBMISSION COMPLETED</h1>
+        <h3 align="center" style="color: #475569;">Your votes have been cryptographically recorded. Redirecting to home portal...</h3>
     </div>
 </p>
 </form>

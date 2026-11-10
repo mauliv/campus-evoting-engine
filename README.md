@@ -59,7 +59,7 @@ During university elections, traffic does not arrive evenly—it spikes in massi
 * CampusBallot Core uses **optimized native PHP with direct parameterized PostgreSQL queries**, achieving sub-15ms response times.
 * Double-voting prevention is enforced at the database layer using transactional row-level locks (`SELECT status FROM mahasiswa WHERE nim = $1 FOR UPDATE`) rather than relying on error-prone application-layer memory flags.
 
-### 3. Dual-Key Plenary Unlock Mechanism (`sistem/rekap/`)
+### 3. Dual-Key Plenary Unlock Mechanism (`system/tabulation/`)
 To preserve real-world electoral integrity and prevent early leaking of candidate vote tallies before polling closes:
 * The live count dashboard remains cryptographically sealed until official closing.
 * Unlocking requires **independent authentication keys from two distinct institutional authorities**:
@@ -67,7 +67,7 @@ To preserve real-world electoral integrity and prevent early leaking of candidat
   2. The **Election Supervisory Board (BAWASLU)** Key
 * Both independent keys must be submitted simultaneously to transition the ballot box state to unlocked.
 
-### 4. Real-Time Turnout Telemetry (`sistem/report/rekap_per_fak.php`)
+### 4. Real-Time Turnout Telemetry (`system/telemetry/turnout.php`)
 * Displays public participation metrics across all faculties.
 * Computed synchronously from live ballot activity with zero caching lag, providing instant voter turnout transparency without revealing candidate vote counts.
 
@@ -96,33 +96,36 @@ campus-evoting-engine/
     ├── assets/                  # Core frontend assets (Bootstrap 5, fonts)
     ├── images/                  # Open-source branding & SVG logos
     │
-    └── sistem/                  # Core Voting Engine Subsystems
-        ├── make_conn.php        # Centralized environment-driven database handler
+    └── system/                  # Core Voting Engine Subsystems
+        ├── db_connect.php       # Centralized environment-driven database handler
         ├── healthcheck.php      # JSON health & latency probe for load balancers
         │
-        ├── bilik/               # Voting Booth Subsystem
-        │   ├── index_a.php      # Booth session intake
-        │   ├── soal_surat.php   # Single-page atomic 5-ballot routing engine
-        │   ├── selesai.php      # Post-vote lock and session clearance
+        ├── booth/               # Voting Booth Subsystem
+        │   ├── index.php        # Booth intake & rules
+        │   ├── ballot.php       # Single-page atomic 5-ballot routing engine
+        │   ├── completed.php    # Post-vote lock and session clearance
         │   └── candidates/      # SVG mock candidate portraits
         │
-        ├── rekap/               # Tabulation & Unlocking Subsystem
+        ├── tabulation/          # Tabulation & Plenary Unlocking Subsystem
         │   ├── index.php        # Plenary session selector
-        │   ├── rekap.php        # Candidate tally dashboard & comparative charts
-        │   ├── set_status.php   # Dual-Key authorization portal
-        │   └── proses_status.php# Dual-Key validation processor
+        │   ├── results.php      # Candidate tally dashboard & comparative charts
+        │   ├── unlock.php       # Dual-Key authorization portal
+        │   └── process_unlock.php # Dual-Key validation processor
         │
-        ├── report/              # Voter Turnout Telemetry
-        │   └── rekap_per_fak.php# Live participation monitor per faculty
+        ├── telemetry/           # Real-Time Turnout Telemetry
+        │   └── turnout.php      # Live participation monitor per faculty
         │
-        ├── verifikasi/          # SSO Intake & Token Generation
+        ├── verification/        # SSO Intake & Token Generation
         │   ├── Cas.php          # Composer-backed phpCAS client wrapper
-        │   ├── index_a.php      # SSO callback & voter eligibility verification
-        │   └── pace.php         # Token generation & handover
+        │   ├── index.php        # SSO callback & voter eligibility verification
+        │   ├── token.php        # Token generation & handover
+        │   └── notify.php       # Notification dispatcher
         │
         └── admin/               # Administrative & Reset Utilities
-            ├── cari.php         # Voter record search utility
-            └── reset_jawaban.php# Supervised vote reset handler (emergency recovery)
+            ├── search.php       # Voter roll search utility
+            ├── search_form.html # Search user interface
+            ├── reset_ballot.php # Supervised ballot reset handler (recovery)
+            └── reset_form.html  # Reset user interface
 ```
 
 ---
@@ -185,7 +188,7 @@ The demo seed script (`database/seed_demo.sql`) provisions the following testing
   * Engineering Student: `22501001` (`student.a@campus.edu`)
   * Medical Student: `23101002` (`student.b@campus.edu`)
 * **Healthcheck Probe:**
-  * Visit `http://localhost:8080/sistem/healthcheck.php` to verify database ping, latency, and runtime environment.
+  * Visit `http://localhost:8080/system/healthcheck.php` to verify database ping, latency, and runtime environment.
 
 ---
 

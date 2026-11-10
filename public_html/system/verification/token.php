@@ -67,41 +67,26 @@
                     <div class="col-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h4 class="box-title"><b>PETUNJUK PEMILIHAN</b></h4>
+                                <h4 class="box-title"><b>VOTING INSTRUCTIONS & SSO AUTHORIZATION</b></h4>
                             </div>
                             <div class="box-body text-dark">
                                 <ul>
-                                    <li style="font-weight: bold; color: red; font-size: 2rem">BACA DAN PAHAMI!</li><br>
-                                    <li style="font-weight: bold; color: red; font-size: 2rem">JANGAN MENINGGALKAN /
-                                        REFRESH / PINDAH TAB / BUKA APLIKASI LAIN SELAMA PROSES PEMILIHAN
-                                    </li><br>
-                                    <li style="font-weight: bold; color: red; font-size: 2rem">Jika tidak ada calon yang
-                                        ditampilkan, silakan langsung klik
-                                        Submit untuk ke tahap berikutnya. JANGAN PENCET KEMBALI / BACK / REFRESH!
-                                    </li><br>
-                                    <li style="font-weight: bold; color: red">Pastikan anda sudah menggunakan Mode
-                                        Penyamaran / Incognito Mode
-                                    </li><br>
-                                    <li>Untuk memilih, klik bulatan disebelah kiri calon, klik Submit untuk menyimpan hasil</li><br>
-                                    <li>Pilihan akan otomatis berpindah ke pilihan berikutnya</li><br>
-                                    <li style="font-weight: bold; color: red; font-size: 1rem">Setelah pilihan berpindah, anda tidak dapat kembali ke pilihan sebelumnya</li><br>
-                                    <li style="font-weight: bold; color: red; font-size: 1rem">Jika tidak ada calon yang ditampilkan, silakan langsung klik Submit untuk ke Bilik Pemilihan selanjutnya</li><br>
-                                    <li>Apabila tidak ingin memilih salah satu calon (golput), silakan langsung klik Submit untuk ke Bilik Pemilihan selanjutnya</li><br>
-                                    <li>Pastikan akun dan password SSO bisa digunakan.</li>
-                                    <li>Pastikan status anda di sistem registrasi sudah aktif (centang)</li>
-                                    <li>Masukkan NIM anda</li>
-                                    <li>Login dengan SSO</li>
+                                    <li style="font-weight: bold; color: #dc2626; font-size: 1.25rem">IMPORTANT: READ CAREFULLY BEFORE PROCEEDING</li><br>
+                                    <li style="font-weight: bold; color: #dc2626;">DO NOT REFRESH, LEAVE THE TAB, OR SWITCH WINDOWS DURING VOTING.</li><br>
+                                    <li>Ensure your central campus SSO credentials are active and accessible.</li><br>
+                                    <li>Enter your official Student ID (NIM) below to initiate cryptographic token generation.</li><br>
+                                    <li>You will be directed to the secure single-page multi-tier voting booth.</li><br>
                                 </ul>
                                 <div class="row">
                                     <div class="col-12 text-center">
-                                        <form class="modal-content animate" action="index_a.php" method="get">
-                                            <label><b>Nomor Induk Mahasiswa (NIM)</b></label>
+                                        <form class="modal-content animate" action="index.php" method="get">
+                                            <label><b>Student ID Number (NIM)</b></label>
                                             <div class="form-group">
                                                 <div class="controls">
-                                                    <input type="text" autocomplete="off" minlength="11" maxlength="11" placeholder="Masukkan NIM Anda" name="nim_mhs"
+                                                    <input type="text" autocomplete="off" minlength="8" maxlength="15" placeholder="Enter your Student ID (NIM)" name="nim_mhs"
                                                            class="form-control" required
                                                            data-validation-containsnumber-regex="(\d)+"
-                                                           data-validation-containsnumber-message="NIM, Hanya Angka yang Di izinkan">
+                                                           data-validation-containsnumber-message="Only numeric digits allowed">
                                                 </div>
                                             </div>
                                             <div class="form-group">

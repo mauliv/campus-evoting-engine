@@ -27,7 +27,7 @@ $response = array(
 );
 
 try {
-    require_once __DIR__ . '/make_conn.php';
+    require_once __DIR__ . '/db_connect.php';
 
     if (isset($conn) && $conn) {
         $query_start = microtime(true);

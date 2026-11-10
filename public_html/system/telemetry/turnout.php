@@ -2,7 +2,7 @@
 ini_set("error_reporting", E_ALL & ~E_NOTICE);
 ini_set("display_errors", 0);
 
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 
 $nomor_sql = "SELECT d.fakultas,
                      COALESCE(COUNT(m.nim), 0) AS count,
@@ -175,26 +175,26 @@ $updated_at = date('d M Y, H:i:s') . ' WIB';
       <h1>Live Voter Turnout Telemetry<br><span style="font-size: 0.6em; opacity: 0.85; font-weight: normal;">CampusBallot Multi-Faculty Telemetry</span></h1>
 
       <p class="sub">
-        Halaman ini menampilkan <strong>jumlah pemilih yang sudah terekam saat ini</strong>.
-        Data diperbarui otomatis setiap <strong>5 detik</strong>.
+        This telemetry dashboard displays <strong>real-time voter participation across all faculties</strong>.
+        Data updates automatically every <strong>5 seconds</strong> with zero caching delay.
       </p>
 
       <div class="hint">
-        <strong>Waktu pembaruan:</strong> <?php echo htmlspecialchars($updated_at); ?><br>
-        Jika tampilan tabel terpotong di ponsel, geser ke samping (horizontal).
+        <strong>Last Synchronized:</strong> <?php echo htmlspecialchars($updated_at); ?><br>
+        Scroll horizontally if viewing on a mobile device.
       </div>
 
       <div class="stats">
         <div class="stat">
-          <div class="t">Total Pemilih Saat Ini</div>
+          <div class="t">Total Ballots Cast</div>
           <div class="v"><?php echo number_format($total, 0, ',', '.'); ?></div>
         </div>
         <div class="stat">
-          <div class="t">Total DPT</div>
+          <div class="t">Registered Voters (DPT)</div>
           <div class="v"><?php echo number_format($total_dpt, 0, ',', '.'); ?></div>
         </div>
         <div class="stat">
-          <div class="t">Persentase Partisipasi</div>
+          <div class="t">Voter Turnout Rate</div>
           <div class="v"><?php echo number_format($persentase_total, 2, ',', '.'); ?>%</div>
         </div>
       </div>
@@ -203,11 +203,11 @@ $updated_at = date('d M Y, H:i:s') . ' WIB';
         <table>
           <thead>
             <tr>
-              <th style="width:60px;">No</th>
-              <th>Fakultas</th>
-              <th style="width:160px;">Jumlah Pemilih</th>
-              <th style="width:130px;">Total DPT</th>
-              <th style="width:130px;">Persentase</th>
+              <th style="width:60px;">#</th>
+              <th>Faculty / Collegiate Division</th>
+              <th style="width:160px;">Ballots Cast</th>
+              <th style="width:150px;">Registered Roll</th>
+              <th style="width:130px;">Turnout Rate</th>
             </tr>
           </thead>
           <tbody>
@@ -223,7 +223,7 @@ $updated_at = date('d M Y, H:i:s') . ' WIB';
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="2" class="num">Total</td>
+              <td colspan="2" class="num">Overall Total</td>
               <td class="num"><?php echo number_format($total, 0, ',', '.'); ?></td>
               <td class="num"><?php echo number_format($total_dpt, 0, ',', '.'); ?></td>
               <td class="num"><?php echo number_format($persentase_total, 2, ',', '.'); ?>%</td>
@@ -233,7 +233,7 @@ $updated_at = date('d M Y, H:i:s') . ' WIB';
       </div>
 
       <div class="footnote">
-        Catatan: angka partisipasi dihitung dari <strong>pemilih terekam saat ini</strong> dibandingkan total DPT.
+        Telemetry Note: Participation metrics are computed synchronously from committed ballot tokens against the verified student electorate.
       </div>
     </div>
   </div>

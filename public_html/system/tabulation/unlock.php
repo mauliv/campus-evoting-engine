@@ -87,15 +87,15 @@ $nomor_soal = isset($_GET['nomor_soal']) ? $_GET['nomor_soal'] : '';
 <body background="../img/hero-bg.jpg">
 <br><br><br><br><br>
 <div class="form-style-6">
-    <h1>SET STATUS</h1>
-    <form action="proses_status.php" method="post">
+    <h1 style="font-size: 1.1rem; text-transform: uppercase;">Dual-Key Plenary Unlock</h1>
+    <form action="process_unlock.php" method="post">
         <input type="hidden" name="kode_fak" value="<?php echo htmlspecialchars($kode_fak); ?>">
-<input type="hidden" name="nomor_soal" value="<?php echo htmlspecialchars($nomor_soal); ?>">
-        <input type="password" name="fakultas" placeholder="Fakultas" /><br>
-        <input type="password" name="pass01" placeholder="Password 1" />
-        <input type="password" name="pass02" placeholder="Password 2" />
+        <input type="hidden" name="nomor_soal" value="<?php echo htmlspecialchars($nomor_soal); ?>">
+        <input type="password" name="fakultas" placeholder="Faculty Code (e.g. 5 or 0)" /><br>
+        <input type="password" name="pass01" placeholder="Election Commission Key (KPU)" />
+        <input type="password" name="pass02" placeholder="Supervisory Board Key (BAWASLU)" />
 
-        <input type="submit" value="Send" />
+        <input type="submit" value="Authorize & Unlock Tabulation" />
     </form>
 </div>
 </html>

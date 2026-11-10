@@ -5,7 +5,7 @@ ini_set("display_errors",0);
 
 
 //=======================
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 
 $nomor_peserta = $_POST[nim];
 $passwd = $_POST[psw];
@@ -126,7 +126,7 @@ $_SESSION["id_soal"] = $id_soal;
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <h3>
-                    <b>Bilik Pemilihan</b>
+                    <b>Voting Booth Access</b>
                 </h3>
             </div>
 
@@ -136,33 +136,23 @@ $_SESSION["id_soal"] = $id_soal;
                     <div class="col-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h4 class="box-title"><b>Cara Memilih</b></h4>
+                                <h4 class="box-title"><b>Voting Guidelines & Regulations</b></h4>
                             </div>
                             <div class="box-body text-dark">
-                                <form id="cd" action="soal_surat.php" name="cd" method="post">
+                                <form id="cd" action="ballot.php" name="cd" method="post">
                                     <br>
                                     <ul>
-                                        <li style="font-weight: bold; color: red; font-size: 2rem">BACA DAN PAHAMI!</li><br>
-                                        <li style="font-weight: bold; color: red; font-size: 2rem">JANGAN MENINGGALKAN /
-                                            REFRESH / PINDAH TAB / BUKA APLIKASI LAIN SELAMA PROSES PEMILIHAN
-                                        </li><br>
-                                        <li style="font-weight: bold; color: red; font-size: 2rem">Jika tidak ada calon yang
-                                            ditampilkan, silakan langsung klik
-                                            Submit untuk ke tahap berikutnya. JANGAN PENCET KEMBALI / BACK / REFRESH!
-                                        </li><br>
-                                        <li style="font-weight: bold; color: red">Pastikan anda sudah menggunakan Mode
-                                            Penyamaran / Incognito Mode
-                                        </li><br>
-                                        <li>Untuk memilih, klik bulatan disebelah kiri calon, klik Submit untuk menyimpan hasil</li><br>
-                                        <li>Pilihan akan otomatis berpindah ke pilihan berikutnya</li><br>
-                                        <li style="font-weight: bold; color: red; font-size: 1rem">Setelah pilihan berpindah, anda tidak dapat kembali ke pilihan sebelumnya</li><br>
-                                        <li style="font-weight: bold; color: red; font-size: 1rem">Jika tidak ada calon yang ditampilkan, silakan langsung klik Submit untuk ke Bilik Pemilihan selanjutnya</li><br>
-                                        <li>Apabila tidak ingin memilih salah satu calon (golput), silakan langsung klik Submit untuk ke Bilik Pemilihan selanjutnya</li><br>
+                                        <li style="font-weight: bold; color: #dc2626; font-size: 1.25rem">IMPORTANT: READ CAREFULLY BEFORE PROCEEDING</li><br>
+                                        <li style="font-weight: bold; color: #dc2626;">DO NOT REFRESH, CLOSE THE TAB, OR SWITCH WINDOWS DURING THE BALLOT PROCESS.</li><br>
+                                        <li>You will be presented with up to 5 concurrent ballot tiers based on your faculty and study program enrollment.</li><br>
+                                        <li>To vote for a candidate or ticket, select the corresponding radio option on the ballot card.</li><br>
+                                        <li>If you do not wish to select a candidate (abstain), leave the ballot card unselected.</li><br>
+                                        <li style="font-weight: bold; color: #dc2626;">Once submitted, your vote is cryptographically recorded and cannot be altered or re-entered.</li><br>
                                     </ul>
-                                    Klik Tombol di Bawah Ini untuk Mulai Memilih <br><b>(Selesaikan dulu proses pemilihan, jangan sambil buka aplikasi lain!)<br><br>
+                                    <p class="fw-bold">Click the button below to open your official ballot cards:</p>
 
                                     <input type="hidden" name="sid" value="<?php echo "$sid"; ?>">
-                                    <input type="submit" name="Submit" class="btn btn-primary" value="Mulai">
+                                    <input type="submit" name="Submit" class="btn btn-primary btn-lg" value="Enter Voting Booth">
                                 </form>
                             </div>
                         </div>

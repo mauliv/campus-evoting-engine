@@ -3,7 +3,7 @@ ini_set("error_reporting", E_ALL & ~E_NOTICE);
 ini_set("display_errors", 0);
 
 require_once('Cas.php');
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 
 // =============================
 // 1. SSO LOGIN
@@ -138,7 +138,7 @@ if (!is_null($status)) {
 
     // =============================
     // 5. UPDATE TOKEN DI TABEL MAHASISWA
-    //    (status, ip, waktu TIDAK diubah di sini — hanya di soal_surat.php setelah submit)
+    //    (status, ip, waktu TIDAK diubah di sini — hanya di ballot.php setelah submit)
     // =============================
     $set_token_sql = "
         UPDATE mahasiswa
@@ -149,7 +149,7 @@ if (!is_null($status)) {
 
     // =============================
     // 6. BUAT SID + TULIS KE T_LOG
-    //    Agar soal_surat.php bisa membaca nomor_peserta & id_jurusan dari t_log
+    //    Agar ballot.php bisa membaca nomor_peserta & id_jurusan dari t_log
     // =============================
     $tes = 'PMW';
     $sid = md5($nomor_peserta . $tes);
@@ -161,7 +161,7 @@ if (!is_null($status)) {
     //   - t_log.foto          = id_jurusan
     //   - t_log.nama          = $nama (di sana berisi id_prodi)
     //   - t_log.id_soal       = id_prodi
-    // Kita ikuti pola itu supaya soal_surat.php kompatibel.
+    // Kita ikuti pola itu supaya ballot.php kompatibel.
     $id_soal_log = $id_prodi;
     $nama_log    = $id_prodi;
 
@@ -361,10 +361,10 @@ if (!is_null($status)) {
                                         <br><b>(Selesaikan dulu proses pemilihan, jangan sambil buka aplikasi lain!)</b>
                                     </p>
 
-                                    <form action="../bilik/soal_surat.php" method="post" class="mt-3">
+                                    <form action="../booth/ballot.php" method="post" class="mt-3">
                                         <input type="hidden" name="sid" value="<?php echo htmlspecialchars($sid); ?>">
                                         <button type="submit" class="btn btn-primary btn-lg">
-                                            Mulai Memilih
+                                            Enter Voting Booth
                                         </button>
                                     </form>
                                 </div>

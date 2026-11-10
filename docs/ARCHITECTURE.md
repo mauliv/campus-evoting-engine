@@ -40,7 +40,7 @@ This failed catastrophically when universities instituted multi-digit faculty id
 ### The Authoritative Relational Solution
 CampusBallot Core enforces strict relational routing:
 1. Student records in `mahasiswa` store verified `fakultas`, `prodi`, `id_prodi`, and `id_jurusan`.
-2. When the voting booth initializes in `soal_surat.php`, it queries ballots using:
+2. When the voting booth initializes in `system/booth/ballot.php`, it queries ballots using:
    - **Universal Tier:** Presidential ticket queried with `id_soal = '0'` and `nomor_soal = '2'`.
    - **Faculty Tier:** Legislative and executive council queried with `id_soal = faculty_code` and `nomor_soal IN ('1', '3', '4')`.
    - **Department Tier:** Program association queried with `id_soal = id_jurusan` and `nomor_soal = '5'`.
@@ -105,7 +105,7 @@ To guarantee trust and transparency across competing student factions, candidate
 2. Unlocking requires joint authorization:
    - `password1`: Secret key distributed exclusively to the **Election Commission (KPU)**.
    - `password2`: Secret key distributed exclusively to the **Independent Supervisory Board (BAWASLU)**.
-3. The validation procedure in `proses_status.php` verifies both keys simultaneously:
+3. The validation procedure in `system/tabulation/process_unlock.php` verifies both keys simultaneously:
    ```sql
    SELECT id_fak, status 
    FROM evoting.status_rekap 

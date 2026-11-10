@@ -4,7 +4,7 @@
 ini_set("error_reporting", E_ALL & ~E_NOTICE);
 ini_set("display_errors", 0);
 
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 
 function faculty_code_from_prodi($prodi_code) {
     $prodi_code = trim((string)$prodi_code);
@@ -211,16 +211,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_vote'])) {
     $update_user_sql = "UPDATE t_user SET test = '5' WHERE username = $1";
     pg_query_params($conn, $update_user_sql, array($nomor_peserta));
 
-    header("Location: selesai.php?sid=" . urlencode($sid));
+    header("Location: completed.php?sid=" . urlencode($sid));
     exit;
 }
 
 $label_posisi = array(
-    1 => 'DPM Universitas',
-    2 => 'BEM Universitas',
-    3 => 'DPM Fakultas',
-    4 => 'BEM Fakultas',
-    5 => 'Himpunan Mahasiswa (HIMA)',
+    1 => 'University Legislative Council (DPM-U)',
+    2 => 'University Student Executive Board (BEM-U)',
+    3 => 'Faculty Legislative Council (DPM-F)',
+    4 => 'Faculty Executive Board (BEM-F)',
+    5 => 'Department Student Association (HIMA)',
 );
 
 $semua_soal = array();
@@ -521,14 +521,13 @@ $semua_soal[] = array(
     <div class="content-wrapper">
         <div class="container-full">
             <div class="content-header">
-                <h3><b>Bilik Pemilihan</b></h3>
-                <p class="text-danger mb-1">
-                    Halaman ini memuat 5 surat suara:
-                    DPM Univ, BEM Univ, DPM Fakultas, BEM Fakultas, dan HIMA.
+                <h3><b>Official Voting Booth</b></h3>
+                <p class="text-primary mb-1">
+                    This screen displays your eligible ballot papers:
+                    University Legislative, University Executive Ticket, Faculty Legislative, Faculty Executive, and Department Association.
                 </p>
                 <p class="text-muted mb-3">
-                    Jangan menutup browser, memuat ulang (refresh), atau berpindah aplikasi
-                    sebelum menekan tombol <strong>Kirim Pilihan</strong>.
+                    Do not close the browser, refresh the page, or leave this window before clicking <strong>Submit Official Ballot</strong>.
                 </p>
             </div>
 
@@ -536,15 +535,15 @@ $semua_soal[] = array(
                 <div class="col-12">
                     <div class="box text-dark p-2 p-sm-3">
 
-                        <form id="formSurat" action="soal_surat.php" method="post">
+                        <form id="formSurat" action="ballot.php" method="post">
                             <input type="hidden" name="sid" value="<?php echo htmlspecialchars($sid); ?>">
 
                             <div class="row">
                                 <?php if (empty($semua_soal)): ?>
                                     <div class="col-12">
                                         <div class="alert alert-warning">
-                                            Tidak ada surat suara yang tersedia untuk Anda.
-                                            Silakan hubungi panitia pemilihan.
+                                            No ballot papers are currently available for your account.
+                                            Please contact the election committee for support.
                                         </div>
                                     </div>
                                 <?php else: ?>
@@ -602,14 +601,14 @@ $semua_soal[] = array(
                                                                             <?php if ($is_pasangan_section): ?>
                                                                                 <?php if (!empty($opsi['teks_main'])): ?>
                                                                                     <div>
-                                                                                        <strong>Ketua:</strong>
+                                                                                        <strong>President / Chair:</strong>
                                                                                         <?php echo nl2br(htmlspecialchars($opsi['teks_main'])); ?>
                                                                                     </div>
                                                                                 <?php endif; ?>
 
                                                                                 <?php if (!empty($opsi['teks_second'])): ?>
                                                                                     <div class="mt-1">
-                                                                                        <strong>Wakil:</strong>
+                                                                                        <strong>Vice President / Co-Chair:</strong>
                                                                                         <?php echo nl2br(htmlspecialchars($opsi['teks_second'])); ?>
                                                                                     </div>
                                                                                 <?php endif; ?>
@@ -625,32 +624,30 @@ $semua_soal[] = array(
                                                         <?php endforeach; ?>
 
                                                         <small class="text-muted">
-                                                            Jika Anda tidak ingin memilih calon pada surat ini,
-                                                            biarkan semua opsi tidak terpilih.
+                                                            To abstain from this ballot, leave all options unselected.
                                                         </small>
                                                     <?php else: ?>
-                                                        <p class="text-danger mb-1">
-                                                            Tidak ada calon pada surat suara ini (Kosong).
+                                                        <p class="text-muted mb-1">
+                                                            No active candidate options on this ballot (Uncontested / Empty).
                                                         </p>
                                                         <small class="text-muted">
-                                                            Informasi lebih lanjut tercantum pada teks di atas.
+                                                            Refer to election guidelines for uncontested ballot seats.
                                                         </small>
                                                     <?php endif; ?>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </div>
+                                             </div>
+                                         </div>
+                                     <?php endforeach; ?>
+                                 <?php endif; ?>
+                             </div>
 
-                            <?php if (!empty($semua_soal)): ?>
-                                <div class="text-center mt-3 mb-3">
-                                    <button type="submit" name="submit_vote" value="1" class="btn btn-lg btn-success">
-    Kirim Pilihan
-</button>
-
-                                </div>
-                            <?php endif; ?>
+                             <?php if (!empty($semua_soal)): ?>
+                                 <div class="text-center mt-3 mb-3">
+                                     <button type="submit" name="submit_vote" value="1" class="btn btn-lg btn-success">
+                                         Submit Official Ballot
+                                     </button>
+                                 </div>
+                             <?php endif; ?>
                         </form>
 
                     </div>

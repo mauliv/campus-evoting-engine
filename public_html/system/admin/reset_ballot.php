@@ -8,7 +8,7 @@
 ini_set("error_reporting",E_ALL & ~E_NOTICE);
 ini_set("display_errors",0);
 
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 
 $nim = $_POST[nim];
 

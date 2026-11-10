@@ -29,7 +29,7 @@ $res = pg_query_params($conn, $sql, array($session_hash));
 * `.gitignore` explicitly prevents staging `.env` files, production dumps, or voter roll CSV files.
 
 ### Session Invalidation & Idempotency
-Once a ballot is successfully committed, the voter's token is immediately consumed (`UPDATE mahasiswa SET status = '1'`) and marked as locked (`t_user.test = '5'`). Subsequent attempts to load the voting booth automatically redirect to the completion page (`selesai.php`), preventing re-entry.
+Once a ballot is successfully committed, the voter's token is immediately consumed (`UPDATE mahasiswa SET status = '1'`) and marked as locked (`t_user.test = '5'`). Subsequent attempts to load the voting booth automatically redirect to the completion page (`system/booth/completed.php`), preventing re-entry.
 
 ---
 
@@ -40,7 +40,7 @@ When deploying to a public or university network, enforce the following operatio
 1. **Strict Transport Security (HSTS) & TLS 1.3:**
    Ensure all traffic is forced over HTTPS with modern cipher suites.
 2. **Reverse Proxy Rate Limiting:**
-   Configure Nginx or Cloudflare rate limiting on `/sistem/bilik/` to restrict abnormal per-IP burst frequencies (e.g. max 10 requests/sec per IP).
+   Configure Nginx or Cloudflare rate limiting on `/system/booth/` to restrict abnormal per-IP burst frequencies (e.g. max 10 requests/sec per IP).
 3. **Database Connection Pooling (PgBouncer):**
    Deploy PgBouncer in front of PostgreSQL using `pool_mode = transaction` with a max client connection limit of 5,000.
 4. **Physical Station Whitelisting:**

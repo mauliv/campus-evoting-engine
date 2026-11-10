@@ -145,21 +145,21 @@ header("Expires: 0");
 <main class="main-container">
     <div class="row g-4">
 
-        <!-- Bilik / Booth -->
+        <!-- Voting Booth -->
         <div class="col-md-4">
             <div class="action-card text-center d-flex flex-column">
                 <div class="feature-icon icon-blue mx-auto">
                     <i class="bi bi-box-arrow-in-right"></i>
                 </div>
-                <h3 class="h5 fw-bold mb-2">Voting Booth (Bilik)</h3>
+                <h3 class="h5 fw-bold mb-2">Voting Booth</h3>
                 <p class="text-muted small flex-grow-1">
                     Atomic single-page ballot routing engine delivering up to 5 concurrent electoral college tiers based on student department mapping.
                 </p>
                 <div class="d-grid gap-2 mt-3">
-                    <a href="sistem/verifikasi/index_a.php" class="btn btn-primary fw-semibold">
+                    <a href="system/verification/index.php" class="btn btn-primary fw-semibold">
                         <i class="bi bi-person-check-fill me-1"></i> Enter via SSO Auth
                     </a>
-                    <a href="sistem/bilik/soal_surat.php" class="btn btn-outline-secondary btn-sm">
+                    <a href="system/booth/ballot.php" class="btn btn-outline-secondary btn-sm">
                         Direct Booth Test
                     </a>
                 </div>
@@ -177,14 +177,14 @@ header("Expires: 0");
                     Live participation monitor showing voter turnout percentages across all faculties, updating synchronously with zero caching lag.
                 </p>
                 <div class="d-grid gap-2 mt-3">
-                    <a href="sistem/report/rekap_per_fak.php" class="btn btn-success fw-semibold">
+                    <a href="system/telemetry/turnout.php" class="btn btn-success fw-semibold">
                         <i class="bi bi-graph-up me-1"></i> Live Turnout Monitor
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Rekap / Tabulation -->
+        <!-- Tabulation -->
         <div class="col-md-4">
             <div class="action-card text-center d-flex flex-column">
                 <div class="feature-icon icon-purple mx-auto">
@@ -195,7 +195,7 @@ header("Expires: 0");
                     Dual-Key ceremonial unlock system requiring joint cryptographic clearance from Election Commission & Supervisory Board to reveal candidate counts.
                 </p>
                 <div class="d-grid gap-2 mt-3">
-                    <a href="sistem/rekap/index.php" class="btn btn-dark fw-semibold">
+                    <a href="system/tabulation/index.php" class="btn btn-dark fw-semibold">
                         <i class="bi bi-key-fill me-1"></i> Plenary Tabulation
                     </a>
                 </div>
@@ -219,7 +219,7 @@ header("Expires: 0");
                     <div class="col-md-6">
                         <ul class="spec-list">
                             <li><i class="bi bi-check-circle-fill"></i> <strong>Dual-Key Custody:</strong> Split authorization prevents unilateral tally leaks before official plenary closing.</li>
-                            <li><i class="bi bi-check-circle-fill"></i> <strong>Health & Telemetry:</strong> Built-in <a href="sistem/healthcheck.php">/sistem/healthcheck.php</a> endpoint for load balancer readiness probes.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <strong>Health & Telemetry:</strong> Built-in <a href="system/healthcheck.php">/system/healthcheck.php</a> endpoint for load balancer readiness probes.</li>
                         </ul>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 ini_set("error_reporting", E_ALL & ~E_NOTICE);
 ini_set("display_errors", 0);
 
@@ -27,7 +27,7 @@ $row = $res ? pg_fetch_assoc($res) : null;
 
 if (!$row) {
     // wrong password; redirect back with hint (optional)
-    header("Location: set_status.php?kode_fak=" . urlencode($return_kode_fak) . "&nomor_soal=" . urlencode($return_nomor_soal));
+    header("Location: unlock.php?kode_fak=" . urlencode($return_kode_fak) . "&nomor_soal=" . urlencode($return_nomor_soal));
     exit;
 }
 
@@ -41,5 +41,5 @@ if ($row['status'] === '0') {
 }
 
 // go back to the rekap that user intended to open
-header("Location: rekap.php?kode_fak=" . urlencode($return_kode_fak) . "&nomor_soal=" . urlencode($return_nomor_soal));
+header("Location: results.php?kode_fak=" . urlencode($return_kode_fak) . "&nomor_soal=" . urlencode($return_nomor_soal));
 exit;

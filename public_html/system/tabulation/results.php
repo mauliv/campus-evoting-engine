@@ -2,7 +2,7 @@
 ini_set("error_reporting", E_ALL & ~E_NOTICE);
 ini_set("display_errors", 0);
 
-require_once __DIR__ . '/../make_conn.php';
+require_once __DIR__ . '/../db_connect.php';
 
 $kode_fak   = trim((string)($_GET['kode_fak'] ?? ''));
 $nomor_soal = trim((string)($_GET['nomor_soal'] ?? ''));
@@ -41,18 +41,18 @@ if (!$cek_status_row) {
     die("status_rekap tidak ditemukan untuk id_fak=" . htmlspecialchars($id_fak_lock));
 }
 if ($cek_status_row['status'] === '0') {
-    header("Location: set_status.php?kode_fak=" . urlencode($kode_fak) . "&nomor_soal=" . urlencode($nomor_soal));
+    header("Location: unlock.php?kode_fak=" . urlencode($kode_fak) . "&nomor_soal=" . urlencode($nomor_soal));
     exit;
 }
 
 
 // -------------------- LABELS --------------------
 $posisi_label = [
-    '1' => 'DPM Universitas',
-    '2' => 'BEM Universitas',
-    '3' => 'DPM Fakultas',
-    '4' => 'BEM Fakultas',
-    '5' => 'HIMA',
+    '1' => 'University Legislative Council (DPM-U)',
+    '2' => 'University Student Executive Board (BEM-U)',
+    '3' => 'Faculty Legislative Council (DPM-F)',
+    '4' => 'Faculty Executive Board (BEM-F)',
+    '5' => 'Department Student Association (HIMA)',
 ];
 
 // -------------------- MAIN DATA --------------------
@@ -528,21 +528,21 @@ foreach ($rows as $r) {
                                                             <?php endif; ?>
                                                             <div class="mt-2 d-flex gap-2 flex-wrap">
                                                                 <?php if (trim($r['foto_ketua']) !== ''): ?>
-                                                                    <img class="calon-img" src="<?php echo htmlspecialchars($r['foto_ketua']); ?>" onerror="this.src='../bilik/candidates/candidate-placeholder.svg'" alt="Leader">
+                                                                    <img class="calon-img" src="<?php echo htmlspecialchars($r['foto_ketua']); ?>" onerror="this.src='../booth/candidates/candidate-placeholder.svg'" alt="Leader">
                                                                 <?php else: ?>
-                                                                    <img class="calon-img" src="../bilik/candidates/candidate-placeholder.svg" alt="Leader">
+                                                                    <img class="calon-img" src="../booth/candidates/candidate-placeholder.svg" alt="Leader">
                                                                 <?php endif; ?>
                                                                 <?php if (trim($r['foto_wakil']) !== ''): ?>
-                                                                    <img class="calon-img" src="<?php echo htmlspecialchars($r['foto_wakil']); ?>" onerror="this.src='../bilik/candidates/candidate-placeholder.svg'" alt="Running Mate">
+                                                                    <img class="calon-img" src="<?php echo htmlspecialchars($r['foto_wakil']); ?>" onerror="this.src='../booth/candidates/candidate-placeholder.svg'" alt="Running Mate">
                                                                 <?php endif; ?>
                                                             </div>
                                                         <?php else: ?>
                                                             <?php echo htmlspecialchars($r['nama_ketua']); ?>
                                                             <div class="mt-2">
                                                                 <?php if (trim($r['foto_ketua']) !== ''): ?>
-                                                                    <img class="calon-img" src="<?php echo htmlspecialchars($r['foto_ketua']); ?>" onerror="this.src='../bilik/candidates/candidate-placeholder.svg'" alt="Candidate">
+                                                                    <img class="calon-img" src="<?php echo htmlspecialchars($r['foto_ketua']); ?>" onerror="this.src='../booth/candidates/candidate-placeholder.svg'" alt="Candidate">
                                                                 <?php else: ?>
-                                                                    <img class="calon-img" src="../bilik/candidates/candidate-placeholder.svg" alt="Candidate">
+                                                                    <img class="calon-img" src="../booth/candidates/candidate-placeholder.svg" alt="Candidate">
                                                                 <?php endif; ?>
                                                             </div>
                                                         <?php endif; ?>
