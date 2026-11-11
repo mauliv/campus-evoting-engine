@@ -60,12 +60,12 @@
 
                                 <!-- ===================== UNIVERSITAS (nomor_soal 1 & 2) ===================== -->
                                 <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseUniv" aria-expanded="false" aria-controls="collapseUniv">
-                                    Universitas
+                                    University Level
                                 </button>
                                 <div class="collapse multi-collapse" id="collapseUniv">
                                     <div class="card card-body">
-                                        <a href="results.php?kode_fak=0&nomor_soal=2" class="btn btn-info" role="button">BEM KM UNY</a>
-                                        <a href="results.php?kode_fak=6&nomor_soal=1" class="btn btn-info" role="button">DPM UNIVERSITAS DAPIL FIKK</a>
+                                        <a href="results.php?kode_fak=0&nomor_soal=2" class="btn btn-info" role="button">University Student Executive Board (BEM-U)</a>
+                                        <a href="results.php?kode_fak=6&nomor_soal=1" class="btn btn-info" role="button">University Legislative Council (DPM-U) - District 6</a>
                                     </div>
                                 </div><br>
 

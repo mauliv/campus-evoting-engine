@@ -30,19 +30,7 @@
 
 					// Images (in the format of 'url': 'alignment').
 						images: {
-							'images/unydrone.jpg': 'center',
-							'images/bg30.jpg': 'center',
-							'images/rektorat.jpg': 'center',
-							'images/dekanatfip.jpg': 'center',
-							'images/dekanatfbs.jpg': 'center',
-							'images/dekanatfmipa.jpg': 'center',
-							'images/dekanatfis.jpg': 'center',
-							'images/kplt.jpg': 'center',
-							'images/dekanatfik.jpeg': 'center',
-							'images/dekanatfe.jpg': 'center',
-							'images/bg50.jpg': 'center',
-							'images/bg40.jpg': 'center',
-							'images/dekanatfk.jpg': 'center'
+							'images/bg-banner.jpg': 'center'
 						},
 
 					// Delay.

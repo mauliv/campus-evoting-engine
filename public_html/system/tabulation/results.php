@@ -199,28 +199,28 @@ foreach ($rows as $r) {
 
 <style>
   :root{
-    --uny-blue:#003153;
-    --uny-blue-light:#004a80;
-    --uny-blue-soft:#e8f1f8;
+    --brand-primary:#003153;
+    --brand-primary-light:#004a80;
+    --brand-primary-soft:#e8f1f8;
   }
 
   body{ background:#f5f9fc; color:#000; }
 
-  .content-header h3{ font-weight:900; color:var(--uny-blue); letter-spacing:.4px; }
+  .content-header h3{ font-weight:900; color:var(--brand-primary); letter-spacing:.4px; }
   .content-header p{ color:#000; font-size:16px; margin-top:4px; }
 
   .box{
     border-radius:18px;
-    border:2px solid var(--uny-blue);
+    border:2px solid var(--brand-primary);
     box-shadow:0 8px 24px rgba(0,0,0,.08);
     background:#fff;
   }
   .box-body{ padding:18px 18px 20px; }
-  .box-title{ font-weight:900; color:var(--uny-blue); font-size:22px; }
+  .box-title{ font-weight:900; color:var(--brand-primary); font-size:22px; }
 
   .stat{
     background:#fff;
-    border:2px solid var(--uny-blue);
+    border:2px solid var(--brand-primary);
     border-radius:18px;
     padding:14px 16px;
     box-shadow:0 6px 14px rgba(0,0,0,.08);
@@ -229,19 +229,19 @@ foreach ($rows as $r) {
   .stat .t{
     font-size:14px;
     font-weight:800;
-    color:var(--uny-blue);
+    color:var(--brand-primary);
     text-transform:uppercase;
     letter-spacing:.6px;
   }
   .stat .v{ font-size:32px; font-weight:900; color:#000; line-height:1.1; }
-  .stat.golput{ border-width:3px; background:var(--uny-blue-soft); }
+  .stat.golput{ border-width:3px; background:var(--brand-primary-soft); }
 
   .chart-wrap{
     height:420px;
     background:#fff;
     border-radius:16px;
     padding:10px;
-    border:2px solid var(--uny-blue);
+    border:2px solid var(--brand-primary);
   }
 
 .chart-scroll{
@@ -264,20 +264,20 @@ foreach ($rows as $r) {
     min-width:720px;
   }
   table.rekap th, table.rekap td{
-    border:2px solid var(--uny-blue);
+    border:2px solid var(--brand-primary);
     padding:10px 12px;
     font-size:16px;
     color:#000;
   }
   table.rekap th{
-    background:var(--uny-blue);
+    background:var(--brand-primary);
     color:#fff;
     font-weight:900;
     text-transform:uppercase;
     letter-spacing:.6px;
     font-size:14px;
   }
-  table.rekap tbody tr:nth-child(even){ background:var(--uny-blue-soft); }
+  table.rekap tbody tr:nth-child(even){ background:var(--brand-primary-soft); }
   .dim-0{ opacity:.65; font-style:italic; }
 
   .btn-warning{ font-weight:800; }
@@ -325,7 +325,7 @@ foreach ($rows as $r) {
   object-fit:cover;         /* crop rapi tanpa distorsi */
   object-position:center;
   border-radius:10px;
-  border:2px solid var(--uny-blue);
+  border:2px solid var(--brand-primary);
   background:#fff;
 }
 
