@@ -1,50 +1,45 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Core Engineering Team
- * Date: 16/12/20
- * Time: 06.34
+ * CampusBallot Core - Administrative Voter Roll Search
+ * Supervised voter registry lookup utility.
  */
-ini_set("error_reporting",E_ALL & ~E_NOTICE);
-ini_set("display_errors",0);
+ini_set("error_reporting", E_ALL & ~E_NOTICE);
+ini_set("display_errors", 0);
 
 require_once __DIR__ . '/../db_connect.php';
 
-$nim = $_POST[nim];
-$email = $_POST[email];
+$nim   = isset($_POST['nim']) ? trim($_POST['nim']) : '';
+$email = isset($_POST['email']) ? trim($_POST['email']) : '';
 
-if ($nim <> '')
-{
-    $cari_sql = "select * from  mahasiswa   WHERE nim = '$nim'";
-    $cari_result = pg_exec($conn,$cari_sql);
-    $hasil_cari = pg_fetch_array($cari_result);
+if ($nim !== '') {
+    $cari_sql = "SELECT nim, nama, status, ip, waktu FROM mahasiswa WHERE nim = $1";
+    $cari_result = pg_query_params($conn, $cari_sql, array($nim));
+    $hasil_cari = $cari_result ? pg_fetch_assoc($cari_result) : null;
 
-
-
-    echo "NIM : $hasil_cari[nim]<br>
-            Nama : $hasil_cari[nama]<br>
-            Status : $hasil_cari[status]<br>
-            IP : $hasil_cari[ip]<br>
-            No. HP : $hasil_cari[no_hp]<br>
-            Waktu : $hasil_cari[waktu]<br>
-
-";
+    if ($hasil_cari) {
+        echo "<strong>Student ID (NIM):</strong> " . htmlspecialchars($hasil_cari['nim']) . "<br>";
+        echo "<strong>Name:</strong> " . htmlspecialchars($hasil_cari['nama']) . "<br>";
+        echo "<strong>Ballot Status:</strong> " . ($hasil_cari['status'] !== null ? "Voted (Locked)" : "Eligible (Not Voted)") . "<br>";
+        echo "<strong>Station IP:</strong> " . htmlspecialchars($hasil_cari['ip'] ?? 'N/A') . "<br>";
+        echo "<strong>Timestamp:</strong> " . htmlspecialchars($hasil_cari['waktu'] ?? 'N/A') . "<br>";
+    } else {
+        echo "<p>No voter found matching Student ID: " . htmlspecialchars($nim) . "</p>";
+    }
 }
 
-if ($email <> '')
+if ($email !== '') {
+    $cari_sql = "SELECT nim, nama, status, ip, waktu FROM mahasiswa WHERE email = $1";
+    $cari_result = pg_query_params($conn, $cari_sql, array($email));
+    $hasil_cari = $cari_result ? pg_fetch_assoc($cari_result) : null;
 
-{
-    $cari_sql = "select * from  mahasiswa   WHERE email = '$email'";
-    $cari_result = pg_exec($conn,$cari_sql);
-    $hasil_cari = pg_fetch_array($cari_result);
-
-
-
-    echo "NIM : $hasil_cari[nim]<br>
-            Nama : $hasil_cari[nama]<br>
-            Status : $hasil_cari[status]<br>
-            IP : $hasil_cari[ip]<br>
-            No. HP : $hasil_cari[no_hp]<br>
-            Waktu : $hasil_cari[waktu]<br>
-            ";
+    if ($hasil_cari) {
+        echo "<strong>Student ID (NIM):</strong> " . htmlspecialchars($hasil_cari['nim']) . "<br>";
+        echo "<strong>Name:</strong> " . htmlspecialchars($hasil_cari['nama']) . "<br>";
+        echo "<strong>Ballot Status:</strong> " . ($hasil_cari['status'] !== null ? "Voted (Locked)" : "Eligible (Not Voted)") . "<br>";
+        echo "<strong>Station IP:</strong> " . htmlspecialchars($hasil_cari['ip'] ?? 'N/A') . "<br>";
+        echo "<strong>Timestamp:</strong> " . htmlspecialchars($hasil_cari['waktu'] ?? 'N/A') . "<br>";
+    } else {
+        echo "<p>No voter found matching SSO Email: " . htmlspecialchars($email) . "</p>";
+    }
 }
+?>

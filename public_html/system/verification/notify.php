@@ -27,7 +27,8 @@ while ($data=pg_fetch_array($cek_wa_blast_sql_result))
 
 
     $curl = curl_init();
-    $token = "4NZ9vP704MgXWc9bDpnlHHoQLtRkZN3CjL1g7alqUtFcAU3hJJCtZIL7Q66HoM0q";
+    $token = getenv('WA_GATEWAY_TOKEN') ?: 'demo_gateway_token_here';
+    $api_url = getenv('WA_GATEWAY_URL') ?: 'https://api.example.com/send-message';
     $data = [
         'phone' => "$nomor_hp",
         'message' => ''.$username,
@@ -41,9 +42,9 @@ while ($data=pg_fetch_array($cek_wa_blast_sql_result))
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-    curl_setopt($curl, CURLOPT_URL, "https://teras.wablas.com/api/send-message");
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($curl, CURLOPT_URL, $api_url);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
     $result = curl_exec($curl);
     curl_close($curl);
 

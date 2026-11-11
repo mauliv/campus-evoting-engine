@@ -1,48 +1,50 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Core Engineering Team
- * Date: 16/12/20
- * Time: 06.34
+ * CampusBallot Core - Supervised Emergency Ballot Reset
+ * Resets a stuck or spoiled voter session under supervisory oversight.
  */
-ini_set("error_reporting",E_ALL & ~E_NOTICE);
-ini_set("display_errors",0);
+ini_set("error_reporting", E_ALL & ~E_NOTICE);
+ini_set("display_errors", 0);
 
 require_once __DIR__ . '/../db_connect.php';
 
-$nim = $_POST[nim];
+$nim = isset($_POST['nim']) ? trim($_POST['nim']) : '';
 
+if ($nim !== '') {
+    // 1. Fetch voter token safely
+    $cari_mhs = "SELECT nim, nama, token FROM mahasiswa WHERE nim = $1";
+    $cari_mhs_result = pg_query_params($conn, $cari_mhs, array($nim));
+    $data_mhs = $cari_mhs_result ? pg_fetch_assoc($cari_mhs_result) : null;
 
-if ($nim <> '')
-{
+    if ($data_mhs) {
+        $token = $data_mhs['token'];
 
-    $cari_mhs = "SELECT nim,nama,token from mahasiswa where nim = '$nim'";
-    $cari_mhs_result = pg_exec($conn,$cari_mhs);
-    $data_mhs = pg_fetch_array($cari_mhs_result);
+        if (!empty($token)) {
+            // Delete previously staged answers for this token
+            $hapus_sql = "DELETE FROM peserta_jawaban WHERE id_peserta = $1";
+            pg_query_params($conn, $hapus_sql, array($token));
+        }
 
-    echo "$cari_mhs<br>";
+        // Reset voter status to eligible
+        $reset_sql = "UPDATE mahasiswa  
+                      SET status = NULL, 
+                          ip = NULL,
+                          token = NULL,
+                          waktu = NULL 
+                      WHERE nim = $1";
+        pg_query_params($conn, $reset_sql, array($nim));
 
-    $token = $data_mhs[token];
-
-    $hapus_jawaban_token = "delete from peserta_jawaban where id_peserta = '$token'";
-    $hapus_jawaban_result = pg_exec($conn,$hapus_jawaban_token);
-
-
-    echo "$hapus_jawaban_token<br>";
-
-    $reset_sql = "update mahasiswa  
-                  set status = NULL, 
-                  ip = NULL,
-                  no_hp = NULL ,
-                  token = NULL ,
-                  waktu = NULL 
-                  WHERE nim = '$nim'";
-    $reset_result = pg_exec($conn,$reset_sql);
-
-    echo "$reset_sql<br>";
-
-    echo "Status mahasiswa di reset<br> <br><a href='form_resetXX.html'>Kembali</a> ";
-
+        echo "<h3>Voter Record Reset Successfully</h3>";
+        echo "<p>Student ID <strong>" . htmlspecialchars($nim) . "</strong> (" . htmlspecialchars($data_mhs['nama']) . ") has been reset to eligible.</p>";
+        echo "<a href='reset_form.html' class='btn btn-primary'>Return to Reset Form</a>";
+    } else {
+        echo "<p>No voter found with Student ID: " . htmlspecialchars($nim) . "</p>";
+        echo "<a href='reset_form.html'>Return</a>";
+    }
+} else {
+    header("Location: reset_form.html");
+    exit;
 }
+?>
 
 
