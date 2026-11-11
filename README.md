@@ -136,7 +136,7 @@ campus-evoting-engine/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/<your-username>/campus-evoting-engine.git
+   git clone https://github.com/mauliv/campus-evoting-engine.git
    cd campus-evoting-engine
    ```
 
